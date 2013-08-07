@@ -1,15 +1,20 @@
 {
-  "name": "application-name",
+  "name": "jumpcloud-super-secret",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "./bin/test"
   },
   "dependencies": {
     "express": "3.3.4",
     "jade": "*",
-    "coffee-script": "~1.6.3",
+    "coffee-script": "~1.6.3"
+  },
+  "devDependencies": {
     "mocha": "~1.12.0",
-    "node-dev": "~2.0.2"
+    "node-dev": "~2.0.2",
+    "assert": "~0.4.9",
+    "request": "~2.26.0"
   }
 }
