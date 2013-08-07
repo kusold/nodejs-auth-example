@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+./node_modules/mocha/bin/mocha tests/_helper.js tests/apps/authentication-test.coffee
