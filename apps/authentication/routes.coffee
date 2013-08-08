@@ -13,7 +13,7 @@ routes = (app) ->
     res.render "#{__dirname}/views/register",
       title: 'Register'
   
-  app.post '/user/create', (req, res) ->
+  app.post '/register', (req, res) ->
     if(req.body.password != req.body.confirm)
       req.flash 'error', 'Your passwords do not match'
       res.redirect '/register'
@@ -24,9 +24,13 @@ routes = (app) ->
           req.flash 'error', err.message
           res.redirect '/register'
         else
-          req.flash 'Thanks for registering'
+          req.flash 'info', 'Thanks for registering'
           res.redirect '/login'
       )
+
+  app.get '/logout', (req, res) ->
+    req.logout()
+    res.redirect '/'
  
 exports.ensureAuthenticated = (req, res, next) ->
   if(req.isAuthenticated())
