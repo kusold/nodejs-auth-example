@@ -25,3 +25,21 @@ describe "authentication", ->
 
     it "should have a submit button", ->
       $('input[name=Submit]', body).should.not.be.empty
+
+  describe "POST /session", ->
+    describe "incorrect credentials", ->
+      body = null
+      before (done) ->
+        options =
+          uri: "http://localhost:3000/sessions"
+          form:
+            user: 'baduser'
+            password: 'badpassword'
+          followAllRedirects: true
+        request.post options, (posterr, postres, postbody) ->
+          body = postbody
+          done()
+
+      it "shows flash message", ->
+        console.log(body)
+        $('.flash .error', body).text().should.equal('Invalid credentials')

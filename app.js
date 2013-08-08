@@ -6,7 +6,8 @@ require('coffee-script');
 
 var express = require('express')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , flash = require('connect-flash');
 
 var app = express();
 
@@ -18,6 +19,10 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(express.cookieParser("superlongandboringsecretthatdoesntmattersinceimputtingitongithubanyways"));
+app.use(express.session());
+app.use(flash());
+require('./apps/helpers')(app);
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.locals.basedir = process.env.PWD;
