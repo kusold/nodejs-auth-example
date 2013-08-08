@@ -7,9 +7,17 @@ require('coffee-script');
 var express = require('express')
   , http = require('http')
   , path = require('path')
-  , flash = require('connect-flash');
+  , flash = require('connect-flash')
+  , mongoose = require('mongoose')
+  , mongoStore = require('connect-mongo')(express)
+  , passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
+
+cookieHash = 'SuperInsecureCookieHash.QuickButDirty'
+mongoDbUrl = "mongodb://localhost:27017"
+app.db = mongoose.connect(mongoDbUrl);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -19,8 +27,25 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser("superlongandboringsecretthatdoesntmattersinceimputtingitongithubanyways"));
-app.use(express.session());
+app.use(express.cookieParser(cookieHash));
+app.use(express.session({
+  store: new mongoStore({
+    url: mongoDbUrl,
+    db: 'test'
+  }),
+  secret: cookieHash
+ })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+User = require('./apps/authentication/models/user');
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
 app.use(flash());
 require('./apps/helpers')(app);
 app.use(app.router);

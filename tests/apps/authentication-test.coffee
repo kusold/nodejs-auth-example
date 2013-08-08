@@ -18,7 +18,7 @@ describe "authentication", ->
       $('title', body).text().should.equal('Login')
 
     it "should have an input with name user", ->
-      $('input[name=user]', body).should.not.be.empty
+      $('input[name=username]', body).should.not.be.empty
 
     it "should have an input with name password", ->
       $('input[name=password]', body).should.not.be.empty
@@ -26,12 +26,12 @@ describe "authentication", ->
     it "should have a submit button", ->
       $('input[name=Submit]', body).should.not.be.empty
 
-  describe "POST /session", ->
+  describe "POST /login", ->
     describe "incorrect credentials", ->
       body = null
       before (done) ->
         options =
-          uri: "http://localhost:3000/sessions"
+          uri: "http://localhost:3000/login"
           form:
             user: 'baduser'
             password: 'badpassword'
