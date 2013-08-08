@@ -18,7 +18,10 @@ describe "authentication", ->
       $('title', body).text().should.equal('Login')
 
     it "should have an input with name user", ->
-      $('input[name=user]', body).should.exist
+      $('input[name=user]', body).should.not.be.empty
 
     it "should have an input with name password", ->
-      $('input[name=password]', body).should.exist
+      $('input[name=password]', body).should.not.be.empty
+
+    it "should have a submit button", ->
+      $('input[name=Submit]', body).should.not.be.empty
