@@ -17,7 +17,7 @@ var express = require('express')
 var app = express();
 
 cookieHash = 'SuperInsecureCookieHash.QuickButDirty'
-mongoDbUrl = "process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || mongodb://localhost:27017"
+mongoDbUrl = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || "mongodb://localhost:27017"
 app.db = mongoose.connect(mongoDbUrl);
 
 // all environments
