@@ -28,7 +28,7 @@ routes = (app) ->
           res.redirect '/register'
         else
           req.flash 'info', 'Thanks for registering'
-          res.redirect '/login'
+          res.redirect '/'
       )
 
   app.get '/logout', (req, res) ->
