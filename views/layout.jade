@@ -45,7 +45,7 @@ html
                     a(href='/register') Register
     
     .container
-      - var flashTypes = ['info', 'error']
+      - var flashTypes = ['success', 'info', 'error']
       each flashType in flashTypes
         if flash[flashType]
           p.flash(class='alert alert-#{flashType}')
