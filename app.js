@@ -11,7 +11,8 @@ var express = require('express')
   , mongoose = require('mongoose')
   , mongoStore = require('connect-mongo')(express)
   , passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
+  , LocalStrategy = require('passport-local').Strategy
+  , auth = require('./apps/authentication/routes');
 
 var app = express();
 
@@ -58,6 +59,8 @@ if ('development' == app.get('env')) {
 }
 
 // routes
+require('./apps/authentication/routes')(app);
+
 app.get('/', function(req,res) {
   res.render(__dirname + "/views/index",
     {
@@ -67,7 +70,20 @@ app.get('/', function(req,res) {
   );
 });
 
-require('./apps/authentication/routes')(app);
+app.get('/secret', ensureAuthenticated, function(req,res) {
+  res.render(__dirname + "/views/secret",
+    {
+      user: req.user,
+      title: 'Shhh...It\'s a secret'
+    }
+  );
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login')
+}

@@ -35,9 +35,4 @@ routes = (app) ->
     req.logout()
     res.redirect '/'
  
-exports.ensureAuthenticated = (req, res, next) ->
-  if(req.isAuthenticated())
-    return next()
-  res.redirect '/login'
-  
 module.exports = routes
