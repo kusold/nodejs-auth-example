@@ -1,14 +1,9 @@
 extends /views/layout
 block content
-  form(action='/register', method='post')
-    label
-      | Username
-      input(type='text', name='username')
-    label
-      | Password
-      input(type='password', name='password')
-    label
-      | Confirm Password
-      input(type='password', name='confirm')
+  form.form-signin(action='/register', method='post')
+    h2.form-signin-heading Registration
+    input.input-block-level(type='text', name='username', placeholder='Username', autofocus)
+    input.input-block-level(type='password', name='password', placeholder='Password')
+    input.input-block-level(type='password', name='confirm', placeholder='Confirm Password')
 
-    input(type='submit', name='Register')
+    button.btn(class='btn-large btn-primary btn-block', type='submit') Register

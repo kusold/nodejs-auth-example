@@ -58,8 +58,16 @@ if ('development' == app.get('env')) {
 }
 
 // routes
-require('./apps/authentication/routes')(app);
+app.get('/', function(req,res) {
+  res.render(__dirname + "/views/index",
+    {
+      user: req.user,
+      title: 'Welcome'
+    }
+  );
+});
 
+require('./apps/authentication/routes')(app);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

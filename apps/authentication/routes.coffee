@@ -6,12 +6,15 @@ routes = (app) ->
     res.render "#{__dirname}/views/login", 
       user: req.user
       title: 'Login'
+      stylesheet: 'login.css'
   
   app.post '/login',  passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', successFlash: 'Welcome!', failureFlash: true}) 
 
   app.get '/register', (req, res) ->
     res.render "#{__dirname}/views/register",
+      user: req.user
       title: 'Register'
+      stylesheet: 'login.css'
   
   app.post '/register', (req, res) ->
     if(req.body.password != req.body.confirm)
