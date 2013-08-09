@@ -21,8 +21,11 @@ html
         a.navbar-brand(href='/') Secret Envelope
         .nav-collapse(class='collapse')
           ul.nav(class='navbar-nav')
-            li.active
+            li
               a(href='/') Home
+            if locals.user
+              li
+               a(href='/secret') Secret Page
           ul.nav(class='navbar-nav pull-right')
             if locals.user
               li.dropdown
