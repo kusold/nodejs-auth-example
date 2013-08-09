@@ -28,7 +28,9 @@ routes = (app) ->
           res.redirect '/register'
         else
           req.flash 'info', 'Thanks for registering'
-          res.redirect '/'
+          passport.authenticate('local')(req, res, ->
+            res.redirect '/'
+          )
       )
 
   app.get '/logout', (req, res) ->
